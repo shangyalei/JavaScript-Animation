@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+        img{
+            border:none;
+        }
+
+        .box{
+            width: 1000px;
+            height: 300px;
+            position: relative;
+            margin: 0 auto;
+        }
+        .box .imgWrap{
+            width: 100%;
+            height: 100%;
+        }
+        .box .imgWrap div{
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            /*opacity:0;*/
+        }
+        .box .imgWrap div img{
+            width: 100%;
+            height: 100%;
+        }
+
+        .box ul{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            overflow: hidden;
+            z-index: 10;
+        }
+        .box ul li{
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            float: left;
+            margin-left:10px;
+            background:darkmagenta;
+            cursor:pointer;
+        }
+        .box ul li.bg{
+            background:darkolivegreen;
+        }
+        .box a{
+            width: 30px;
+            height: 46px;
+            position: absolute;
+            top: 50%;
+            margin-top:-23px;
+            z-index: 10;
+            opacity:.5;
+            background-image: url("img/pre.png");
+            background-repeat: no-repeat;
+            display: none;
+
+        }
+        .box a:hover{
+            opacity:1;
+        }
+        .box a.btnLeft{
+            background-position: 0 0;
+            left: 30px;
+        }
+        .box a.btnRight{
+            background-position: -50px 0;
+            right: 30px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+
+<div id="box" class="box">
+    <div class="imgWrap">
+        <div><img src="img/banner1.jpg" alt=""></div>
+        <div><img src="img/banner2.jpg" alt=""></div>
+        <div><img src="img/banner3.jpg" alt=""></div>
+        <div><img src="img/banner4.jpg" alt=""></div>
+    </div>
+
+    <ul>
+        <li class="bg"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <a href="javascript:;" class="btnLeft"></a>
+    <a href="javascript:;" class="btnRight"></a>
+</div>
+
+<script src="utils.js"></script>
+<script src="move.js"></script>
+<script src="animation.js"></script>
+<script>
+
+
+
+var oBox=document.getElementById('box');
+var oImgWrap=oBox.getElementsByTagName('div')[0];
+var aDiv=oImgWrap.getElementsByTagName('div');
+var oUl=oBox.getElementsByTagName('ul')[0];
+var aLi=oUl.getElementsByTagName('li');
+var oBtnLeft=oBox.getElementsByTagName('a')[0];
+var oBtnRight=oBox.getElementsByTagName('a')[1];
+var autoTimer=null;
+var step=0;
+var interval=2000;
+
+
+
+autoTimer=setInterval(autoMove,interval);
+function autoMove(){
+    if(step>=aDiv.length-1){
+        step=-1;
+    }
+    step++;
+    setBanner();
+}
+function setBanner(){
+    for(var i=0;i<aDiv.length;i++){
+        var cur=aDiv[i];
+        if(step===i){
+            dom.css(cur,'zIndex',1);
+            animate(cur,{opacity:1},200,function(){
+                var siblings=dom.siblings(this);
+                for(var i=0;i<siblings.length;i++){
+                    dom.css(siblings[i],'opacity',0);
+                }
+            });
+            continue;
+        }
+        dom.css(cur,"zIndex",0);
+    }
+    bannerTip();
+}
+
+function bannerTip(){
+    for(var i=0;i<aLi.length;i++){
+        var cur=aLi[i];
+        step===i?dom.addClass(cur,'bg'):dom.removeClass(cur,'bg');
+    }
+}
+
+function stopStat(){
+
+}
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>

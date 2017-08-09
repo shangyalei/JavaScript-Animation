@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .wrap{
+            width: 1000px;
+            height: 300px;
+            position: relative;
+            margin: 30px auto;
+            overflow: hidden;
+        }
+        .wrap .boxInner{
+            width: 4000px;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+        }
+
+        .wrap .boxInner img{
+            float: left;
+            width: 1000px;
+            height: 300px;
+        }
+
+        .wrap ul{
+            position: absolute;
+            right: 20%;
+            bottom: 5%;
+
+        }
+        .wrap ul li{
+            width: 20px;
+            height: 20px;
+            border-radius:50%;
+            background:darkcyan;
+            float: left;
+            margin-left:30px;
+        }
+        .wrap ul li.active{
+            background: darkmagenta;
+        }
+
+        .wrap a{
+            /*display: block;*/
+            width: 30px;
+            height: 46px;
+            position: absolute;
+            top: 50%;
+            margin-top:-23px;
+            background-image:url("img/pre.png");
+            background-repeat:no-repeat;
+
+        }
+        .wrap a.left{
+            left: 30px;
+            background-position: 0 0;
+        }
+        .wrap a.right{
+            right:30px;
+            background-position:-50px 0;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<div class="wrap" id="wrap">
+
+    <div class="boxInner" id="boxInner">
+        <img src="img/banner4.jpg" alt="">
+        <img src="img/banner1.jpg" alt="">
+        <img src="img/banner2.jpg" alt="">
+        <img src="img/banner3.jpg" alt="">
+        <img src="img/banner4.jpg" alt="">
+        <img src="img/banner1.jpg" alt="">
+    </div>
+
+    <ul id="btn">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+    <a href="javascript:;" class="left"></a>
+    <a href="javascript:;" class="right"></a>
+
+    
+</div>
+
+<script src="../animation.js"></script>
+<script>
+
+    var oWrap = document.getElementById('wrap');
+    var oBoxInner = document.getElementById('boxInner');
+    var oImg=oBoxInner.getElementsByTagName('img');
+    var oBtn=document.getElementById('btn').getElementsByTagName('li');
+
+    var left=document.getElementsByClassName('left');
+    var right=document.getElementsByClassName('right');
+
+
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>

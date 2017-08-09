@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style: none;
+            text-decoration: none;
+        }
+        .box{
+            width: 1000px;
+            height: 300px;
+            position: relative;
+            margin:20px auto;
+            overflow: hidden;
+        }
+        .box .imgWrap{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left:0;
+            top:0;
+        }
+        .box .imgWrap div{
+            width: 1000px;
+            height: 300px;
+            float: left;
+            background:url("img/default.gif") center center no-repeat #e1e1e1;
+        }
+        .box ul{
+            position: absolute;
+            bottom: 20px;
+            right:20px;
+        }
+        .box ul li{
+            width: 18px;
+            height: 18px;
+            background: #ccc;
+            float: left;
+            margin-left:10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .box ul li.bg{
+            background: lightblue;
+        }
+        .box a{
+            width: 30px;
+            height: 45px;
+            background-image: url("img/pre.png");
+            background-repeat: no-repeat;
+            position: absolute;
+            top:127.5px;
+            opacity: 0.5;
+            filter:'alpha(opacity=50)';
+            display: none;
+        }
+        .box a:hover{
+            opacity: 1;
+            filter:'alpha(opacity=100)'
+        }
+        .box a.btnLeft{
+            background-position: 0 0;
+            left:30px;
+        }
+        .box a.btnRight{
+            background-position: -50px 0;
+            right:30px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="box" class="box">
+    <div class="imgWrap">
+        <div><img src="img/banner1.jpg" alt=""/></div>
+        <div><img src="img/banner2.jpg" alt=""/></div>
+        <div><img src="img/banner3.jpg" alt=""/></div>
+        <div><img src="img/banner4.jpg" alt=""/></div>
+    </div>
+    <ul>
+        <li class="bg"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <a href="javascript:;" class="btnLeft"></a>
+    <a href="javascript:;" class="btnRight"></a>
+</div>
+
+<script src="../lib/animation.js"></script>
+<script>
+
+    var oBox=document.getElementById('box');
+    var oImgWrap=oBox.getElementsByTagName('div')[0];
+    var aDiv=oImgWrap.getElementsByTagName('div');
+    var oUl=oBox.getElementsByTagName('ul')[0];
+    var aLi=oUl.getElementsByTagName('li');
+    var oBtnLeft=oBox.getElementsByTagName('a')[0];
+    var oBtnRight=oBox.getElementsByTagName('a')[1];
+    var autoTimer=null;
+    var interval=3000;
+    var step=0;
+    oImgWrap.innerHTML+='<div><img src="img/banner1.jpg" alt=""/></div>';
+    oImgWrap.style.width=aDiv.length*aDiv[0].offsetWidth+"px";
+
+    clearInterval(autoTimer);
+    autoTimer=setInterval(autoMove,interval);
+    function autoMove(){
+        if(step>=aDiv.length-1){
+            step=0;
+            css(oImgWrap,'left',-step*1000)
+        }
+        step++;
+
+        animate(oImgWrap,{'left':-step*1000},500);
+        bannerTip();
+
+    }
+
+    function bannerTip(){
+        var temStep=step>=aLi.length?0:step;
+        for(var i=0;i<aLi.length;i++){
+            var cur=aLi[i];
+            i===temStep?addClass(cur,'bg'):removeClass(cur,'bg');
+        }
+    }
+
+    oBox.onmouseover=function(){
+        clearInterval(autoTimer);
+        css(oBtnLeft,'display','block');
+        css(oBtnRight,'display','block');
+    };
+
+
+    oBox.onmouseout=function(){
+        autoTimer=setInterval(autoMove,interval);
+        css(oBtnLeft,'display','none');
+        css(oBtnRight,'display','none');
+    };
+
+    handleChange();
+    function handleChange(){
+        for(var i=0;i<aLi.length;i++){
+            var cur=aLi[i];
+            cur.index=i;
+            cur.onclick=function(){
+                step=this.index;
+                animate(oImgWrap,{'left':-step*1000},500);
+                bannerTip();
+            }
+        }
+    }
+
+    oBtnRight.onclick=autoMove;
+
+    oBtnLeft.onclick=function(){
+        if(step<=0){
+            step=aDiv.length-1;
+            css(oImgWrap,'left',-step*1000);
+        }
+        step--;
+        animate(oImgWrap,{'left':-step*1000},500);
+        bannerTip();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>
